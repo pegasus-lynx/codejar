@@ -106,22 +106,24 @@ public class ChessBoard
 
     public void Print()
     {
-        Console.WriteLine("    A B C D E F G H");
+        StringBuilder board = new();
+        board.AppendLine("    A B C D E F G H");
 
         for(int row = 8; row >= 1; row--)
         {
-            Console.Write($"{row,2}  ");
+            board.Append($"{row,2}  ");
 
             for(int col = 1; col <= 8; col++)
             {
                 Piece piece = GetAt(row, col);
-                Console.Write($"{piece?.GetSymbol() ?? " "} ");
+                board.Append($"{piece?.GetSymbol() ?? " "} ");
             }
 
-            Console.WriteLine($" {row}");
+            board.AppendLine($" {row}");
         }
 
-        Console.WriteLine("    A B C D E F G H");
+        board.AppendLine("    A B C D E F G H");
+        Console.Write(board);
     }
 
     private void InitializeBoard()
