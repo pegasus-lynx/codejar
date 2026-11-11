@@ -1,6 +1,6 @@
 #load "enums.csx"
 
-public class CellPosition
+public class CellPosition : IEquatable<CellPosition>
 {
     public CellPosition(int row, int col)
     {
@@ -28,6 +28,20 @@ public class CellPosition
 
     public int Row { get; private set; }
     public int Col { get; private set; }
+
+    public bool Equals(CellPosition other) =>
+        other is not null && Row == other.Row && Col == other.Col;
+
+    public override bool Equals(object obj) =>
+        obj is CellPosition other && Equals(other);
+
+    public override int GetHashCode() => HashCode.Combine(Row, Col);
+
+    public static bool operator ==(CellPosition left, CellPosition right) =>
+        ReferenceEquals(left, right) || (left is not null && left.Equals(right));
+
+    public static bool operator !=(CellPosition left, CellPosition right) =>
+        !(left == right);
 
     private static int GetRow(char rowId) => rowId - '0';
     private static int GetCol(char colId) => (colId - 'A') + 1; 

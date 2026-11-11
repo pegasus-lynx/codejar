@@ -29,6 +29,7 @@ public class ChessBoard
         Piece fromPiece = GetAt(from);
         fromPiece.Position = to;
         active_pieces[to] = fromPiece;
+        active_pieces.Remove(from);
 
         UpdateBoardState();
         return result;
@@ -102,6 +103,26 @@ public class ChessBoard
     }
 
     public bool IsCellEmpty(CellPosition pos) => GetAt(pos) is null;
+
+    public void Print()
+    {
+        Console.WriteLine("    A B C D E F G H");
+
+        for(int row = 8; row >= 1; row--)
+        {
+            Console.Write($"{row,2}  ");
+
+            for(int col = 1; col <= 8; col++)
+            {
+                Piece piece = GetAt(row, col);
+                Console.Write($"{piece?.GetSymbol() ?? " "} ");
+            }
+
+            Console.WriteLine($" {row}");
+        }
+
+        Console.WriteLine("    A B C D E F G H");
+    }
 
     private void InitializeBoard()
     {
@@ -209,6 +230,10 @@ public class ChessGame
                         ? PlayerWhite : PlayerBlack;
         }
 
+        nextPlayerColor = nextPlayerColor == Color.White
+            ? Color.Black
+            : Color.White;
+
         return true;
     }
 
@@ -219,6 +244,22 @@ public class ChessGame
             return null;
 
         return piece.CandidateMoves(board);
+    }
+
+    public void Print()
+    {
+        Console.WriteLine($"{PlayerWhite.User.Name} (White) vs {PlayerBlack.User.Name} (Black)");
+        Console.WriteLine($"Game: {State} | Board: {board.State}");
+
+        if(State == GameState.Finished)
+            Console.WriteLine($"Winner: {Winner.User.Name} ({Winner.Color})");
+        else
+        {
+            Player nextPlayer = nextPlayerColor == Color.White ? PlayerWhite : PlayerBlack;
+            Console.WriteLine($"Next: {nextPlayer.User.Name} ({nextPlayer.Color})");
+        }
+
+        board.Print();
     }
 
     private Color nextPlayerColor = Color.White;

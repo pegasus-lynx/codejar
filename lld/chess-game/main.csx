@@ -8,17 +8,47 @@ User u1 = new User("Alice");
 User u2 = new User("Bob");
 
 ChessGame game = new ChessGame(u1, u2);
-game.TakeTurn("E2", "E3");
-game.TakeTurn("E7", "E6");
-game.TakeTurn("E3", "E4");
-game.TakeTurn("E6", "E5");
-game.TakeTurn("D1", "D3");
-game.TakeTurn("F8", "E7");
-game.TakeTurn("F1", "F4");
-game.TakeTurn("G8", "G6");
-game.TakeTurn("D2", "D3");
-game.TakeTurn("E7", "G5");
-game.TakeTurn("C1", "G5");
-game.TakeTurn("D8", "G5");
-game.TakeTurn("G1", "E2");
-game.TakeTurn("D7", "D6");
+PrintGame(game);
+
+List<(string fromCell, string toCell)> turns = [
+    ("E2", "E3"),
+    ("E7", "E6"),
+    ("E3", "E4"),
+    ("E6", "E5"),
+    ("D1", "F3"),
+    ("F8", "E7"),
+    ("F1", "C4"),
+    ("G8", "H6"),
+    ("D2", "D3"),
+    ("E7", "G5"),
+    ("C1", "G5"),
+    ("D8", "G5"),
+    ("G1", "E2"),
+    ("D7", "D6")
+];
+
+foreach (var (fromCell, toCell) in turns)
+{
+    if(!game.TakeTurn(fromCell, toCell))
+    {
+        Console.WriteLine("Invalid Turn");
+        return;
+    }
+
+    PrintGame(game);
+    System.Threading.Thread.Sleep(500);
+}
+
+
+void PrintGame(ChessGame chessGame)
+{
+    Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+    if(Console.IsOutputRedirected)
+        Console.Write("\u001b[2J\u001b[H");
+    else
+        Console.Clear();
+
+    chessGame.Print();
+}
+

@@ -13,6 +13,8 @@ public abstract class Piece
 
     public CellPosition Position {get; set;}
     public Color Color {get; private set;}
+    public abstract string GetSymbol();
+
     public virtual List<CellPosition> CandidateMoves(ChessBoard board)
     {
         List<CellPosition> candidateMoves = new();
@@ -69,6 +71,11 @@ public class Rook : Piece
 {
     public Rook(CellPosition position, Color color) : base(position, color) {}
 
+    public override string GetSymbol()
+    {
+        return Color == Color.White ? "♖" : "♜";
+    }
+
     protected override List<MoveStrategy> GetMoveStrategies()
     {
         return MoveStrategies.Straight(Position);
@@ -78,6 +85,11 @@ public class Rook : Piece
 public class Knight : Piece
 {
     public Knight(CellPosition position, Color color) : base(position, color) {}
+
+    public override string GetSymbol()
+    {
+        return Color == Color.White ? "♘" : "♞";
+    }
 
     protected override List<MoveStrategy> GetMoveStrategies()
     {
@@ -91,6 +103,11 @@ public class Bishop : Piece
 {
     public Bishop(CellPosition position, Color color) : base(position, color) {}
 
+    public override string GetSymbol()
+    {
+        return Color == Color.White ? "♗" : "♝";
+    }
+
     protected override List<MoveStrategy> GetMoveStrategies()
     {
         return MoveStrategies.Diagonal(Position);
@@ -101,6 +118,11 @@ public class Bishop : Piece
 public class King : Piece
 {
     public King(CellPosition position, Color color) : base(position, color) {}
+
+    public override string GetSymbol()
+    {
+        return Color == Color.White ? "♔" : "♚";
+    }
 
     protected override List<MoveStrategy> GetMoveStrategies()
     {
@@ -114,6 +136,11 @@ public class Queen : Piece
 {
     public Queen(CellPosition position, Color color) : base(position, color) {}
 
+    public override string GetSymbol()
+    {
+        return Color == Color.White ? "♕" : "♛";
+    }
+
     protected override List<MoveStrategy> GetMoveStrategies()
     {
         return MoveStrategies.Queen(Position);
@@ -123,6 +150,11 @@ public class Queen : Piece
 public class Pawn : Piece
 {
     public Pawn(CellPosition position, Color color) : base(position, color) {}
+
+    public override string GetSymbol()
+    {
+        return Color == Color.White ? "♙" : "♟";
+    }
 
     protected override List<MoveStrategy> GetMoveStrategies()
     {

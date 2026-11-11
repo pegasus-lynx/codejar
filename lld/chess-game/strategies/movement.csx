@@ -127,9 +127,13 @@ public class MoveCollectionStrategy : MoveStrategy
 
     public override bool MoveNext()
     {
-        _current = new CellPosition(_initial.Row + deltas[_ix].Row, 
+        if(_ix >= deltas.Count)
+            return false;
+
+        _current = new CellPosition(_initial.Row + deltas[_ix].Row,
                                     _initial.Col + deltas[_ix].Col);
-        return _ix++ < deltas.Count;        
+        _ix++;
+        return true;
     }
 
     public override void Reset()
