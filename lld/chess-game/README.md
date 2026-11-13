@@ -1,21 +1,32 @@
-### Chess Game - Design
+# Chess Game - Design v2
 
-#### Rules of game
-- White starts the game
-- There are special rules - pawn to any character, castling, etc. ( we will skip those for now)
-- If moving a piece exposes an attack on king, we can not move the piece.
+## Rules of the game
+1. Board is a 8x8 grid.
+2. It contains 2 players - black and white
+3. Each player has 16 pieces: 
+    - 8 pawns, a king and a queen
+    - 2 rooks, knights and bishops
+4. Each piece has it's own movement strategy
+5. There are special moves - castling, pawn double, pawn promotion.
+6. In chess, game can be in the following states - progress, checked, checkmate or stalemate / draw.
 
-#### Entities 
-- Pieces : A game consists of black and white pieces of different types. Each piece has different movement constraints.
-- Board : An 8x8 grid where the pieces are arranged and moved.
-- Player : 2 players, each owning black and white pieces
-- Game : Consist of 2 players, who take turns 1 by 1, until the other king is check mate.
+## Functional Requirements
+1. All the rules of chess are implemented.
+2. History of moves and replay.
+3. Players can undo a move.
+4. Validate moves.
+5. Detect board state.
+6. Support special moves.
 
-#### State
-There are two types of states that I can think of right now:
-1. Game State - It can be in progress, check of black / white king, checkmate on black / white king
-2. Piece State - It can be either dead or alive
 
+#### Entities and Roles
+- **abs. Piece** - A game consists of black and white pieces of different types. Each piece moves differently. Concrete classes - King, Queen, Bishop, Knight, Rook, Pawn.
+- **Board** : An 8x8 grid where the pieces are arranged and moved.
+- **Player** : Identity and Color.
+- **Game** : 2 players, turn taking.
+- **Move** : From and To positions.
+
+#### Class Diagram
 
 ```mermaid
     classDiagram
