@@ -1,7 +1,7 @@
 #load "enums.csx"
 #load "models.csx"
 #load "entities.csx"
-#load "../strategies/movement.csx"
+#load "movement.csx"
 
 public abstract class Piece
 {

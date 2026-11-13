@@ -12,11 +12,13 @@
 
 ## Functional Requirements
 1. All the rules of chess are implemented.
-2. History of moves and replay.
+2. History of moves and replay. (v2)
 3. Players can undo a move.
 4. Validate moves.
 5. Detect board state.
-6. Support special moves.
+6. Support special moves. (v2)
+7. Observers who can watch the match. (v3)
+8. Timer functionality (v3)
 
 
 #### Entities and Roles
@@ -24,7 +26,7 @@
 - **Board** : An 8x8 grid where the pieces are arranged and moved.
 - **Player** : Identity and Color.
 - **Game** : 2 players, turn taking.
-- **Move** : From and To positions.
+- **Move** : From and To positions storage.
 
 #### Class Diagram
 
