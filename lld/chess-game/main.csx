@@ -1,14 +1,14 @@
-#load "models\enums.csx"
-#load "models\models.csx"
-#load "models\pieces.csx"
-#load "models\entities.csx"
-
+#load "l1_enums.csx"
+#load "l1_models.csx"
+#load "l4_game.csx"
+#load "l4_printer.csx"
 
 User u1 = new User("Alice");
 User u2 = new User("Bob");
 
 ChessGame game = new ChessGame(u1, u2);
-PrintGame(game);
+GamePrinter printer = new GamePrinter(game, game.GetBoardView());
+printer.Print();
 
 List<(string fromCell, string toCell)> turns = [
     ("E2", "E3"),
@@ -29,26 +29,17 @@ List<(string fromCell, string toCell)> turns = [
 
 foreach (var (fromCell, toCell) in turns)
 {
-    if(!game.TakeTurn(fromCell, toCell))
+    MoveError error = game.TakeTurn(fromCell, toCell);
+    if(error != MoveError.None)
     {
-        Console.WriteLine("Invalid Turn");
+        Console.WriteLine($"Invalid Turn - {error}");
         return;
     }
 
-    PrintGame(game);
+    printer.Print();
     System.Threading.Thread.Sleep(500);
 }
 
 
-void PrintGame(ChessGame chessGame)
-{
-    Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-    if(Console.IsOutputRedirected)
-        Console.Write("\u001b[2J\u001b[H");
-    else
-        Console.Clear();
-
-    chessGame.Print();
-}
 
